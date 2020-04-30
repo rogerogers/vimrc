@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+
+import sys
+import subprocess
+
+args = sys.argv
+
+args.append("")
+args.pop(0)
+
+args = [
+    "/usr/bin/java",
+    "-jar",
+    "/home/rogers/Downloads/google-java-format-1.7-all-deps.jar",
+] + args
+
+subprocess.check_call(args)

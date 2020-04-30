@@ -1,13 +1,19 @@
 set nu
 let g:ycm_auto_trigger = 1
+
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier','eslint'],
 \   'python': ['black'],
+\   'java': ['google_java_format'],
 \}
-let g:ycm_filetype_whitelist = {
+
+let g:ycm_filetype_blacklist = {
             \'python': 1,
-            \'javascript': 1
+            \}
+let g:ycm_filetype_whitelist = {
+            \'javascript': 1,
+            \'java': 1
             \}
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 nnoremap <leader>cl :YcmCompleter GoToDeclaration<CR>
