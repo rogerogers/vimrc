@@ -1,4 +1,11 @@
 set nu
+call plug#begin('~/.vim/plugged')
+Plug 'kiteco/vim-plugin'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'mattn/emmet-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+call plug#end()
 
 let g:ale_fixers = {
 \   'javascript': ['prettier','eslint'],
