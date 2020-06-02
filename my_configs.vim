@@ -17,7 +17,7 @@ let g:ale_linters = {
             \}
 let g:ycm_filetype_whitelist = {
             \'javascript': 1,
-            \'java': 1
+            \'java': 1,
             \'python': 1,
             \}
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
