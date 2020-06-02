@@ -15,12 +15,10 @@ let g:ale_fixers = {
 let g:ale_linters = {
     \ 'python': ['pylint'],
             \}
-let g:ycm_filetype_blacklist = {
-            \'python': 1,
-            \}
 let g:ycm_filetype_whitelist = {
             \'javascript': 1,
             \'java': 1
+            \'python': 1,
             \}
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 nnoremap <leader>cl :YcmCompleter GoToDeclaration<CR>
