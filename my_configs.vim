@@ -9,7 +9,7 @@ call plug#end()
 let g:ale_fixers = {
 \   'javascript': ['prettier','eslint'],
 \   'javascriptreact': ['prettier','eslint'],
-\   'python': ['black'],
+\   'python': ['black', 'isort'],
 \   'java': ['google_java_format'],
 \}
 let g:ale_linters = {
@@ -26,6 +26,5 @@ nnoremap <leader>rf :YcmCompleter GoToReferences<CR>
 let g:NERDTreeWinPos = "left"
 
 let g:ale_fix_on_save = 1
-set statusline=%<%f\ %h%m%r%{kite#statusline()}%=%-14.(%l,%c%V%)\ %P
 set laststatus=2  " always display the status line
 set completeopt=noinsert,menuone
