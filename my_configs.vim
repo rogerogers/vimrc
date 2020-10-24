@@ -11,6 +11,7 @@ let g:ale_fixers = {
 \   'javascriptreact': ['prettier','eslint'],
 \   'python': ['black', 'isort'],
 \   'java': ['google_java_format'],
+\   'yaml': ['prettier'],
 \}
 let g:ale_linters = {
     \ 'python': ['pylint'],
