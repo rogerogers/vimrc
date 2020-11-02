@@ -2,8 +2,6 @@ set nu
 call plug#begin('~/.vim/plugged')
 Plug 'ycm-core/YouCompleteMe'
 Plug 'mattn/emmet-vim'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 call plug#end()
 
 let g:ale_fixers = {
@@ -12,6 +10,8 @@ let g:ale_fixers = {
 \   'python': ['black', 'isort'],
 \   'java': ['google_java_format'],
 \   'yaml': ['prettier'],
+\   'json': ['prettier'],
+\   'rust': ['rustfmt'],
 \}
 let g:ale_linters = {
     \ 'python': ['pylint'],
@@ -20,6 +20,7 @@ let g:ycm_filetype_whitelist = {
             \'javascript': 1,
             \'java': 1,
             \'python': 1,
+            \'rust': 1,
             \}
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 nnoremap <leader>cl :YcmCompleter GoToDeclaration<CR>
