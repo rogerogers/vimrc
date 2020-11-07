@@ -2,6 +2,7 @@ set nu
 call plug#begin('~/.vim/plugged')
 Plug 'ycm-core/YouCompleteMe'
 Plug 'mattn/emmet-vim'
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 let g:ale_fixers = {
@@ -11,6 +12,8 @@ let g:ale_fixers = {
 \   'java': ['google_java_format'],
 \   'yaml': ['prettier'],
 \   'json': ['prettier'],
+\   'html': ['html-beautify'],
+\   'htmldjango': ['html-beautify'],
 \   'rust': ['rustfmt'],
 \}
 let g:ale_linters = {
@@ -22,6 +25,7 @@ let g:ycm_filetype_whitelist = {
             \'python': 1,
             \'rust': 1,
             \}
+let g:html_beautify_optiona = '--editorconfig'
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 nnoremap <leader>cl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>rf :YcmCompleter GoToReferences<CR>
