@@ -31,6 +31,8 @@ nnoremap <leader>cl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>rf :YcmCompleter GoToReferences<CR>
 let g:NERDTreeWinPos = "left"
 
+let g:ycm_key_list_select_completion = ['<Down>']
+
 let g:ale_fix_on_save = 1
 set laststatus=2  " always display the status line
 set completeopt=noinsert,menuone
