@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'ycm-core/YouCompleteMe'
 Plug 'mattn/emmet-vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 let g:ale_fixers = {
