@@ -16,6 +16,7 @@ let g:ale_fixers = {
 \   'html': ['html-beautify'],
 \   'htmldjango': ['html-beautify'],
 \   'rust': ['rustfmt'],
+\   'go': ['gofmt'],
 \}
 let g:ale_linters = {
     \ 'python': ['pylint'],
@@ -25,6 +26,7 @@ let g:ycm_filetype_whitelist = {
             \'java': 1,
             \'python': 1,
             \'rust': 1,
+            \'go': 1,
             \}
 let g:html_beautify_optiona = '--editorconfig'
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
@@ -37,3 +39,5 @@ let g:ycm_key_list_select_completion = ['<Down>']
 let g:ale_fix_on_save = 1
 set laststatus=2  " always display the status line
 set completeopt=noinsert,menuone
+set splitbelow
+set termwinsize=10*0
