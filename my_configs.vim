@@ -19,6 +19,8 @@ let g:ale_fixers = {
 \   'htmldjango': ['html-beautify'],
 \   'rust': ['rustfmt'],
 \   'go': ['gofmt'],
+\   'c': ['clang-format'],
+\   'markdown': ['prettier']
 \}
 let g:ale_linters = {
     \ 'python': ['pylint'],
