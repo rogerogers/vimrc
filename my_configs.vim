@@ -21,6 +21,7 @@ let g:ale_fixers = {
 \   'go': ['gofmt'],
 \   'c': ['clang-format'],
 \   'markdown': ['prettier']
+\   'sh': ['shfmt']
 \}
 let g:ale_linters = {
     \ 'python': ['pylint'],
