@@ -20,12 +20,9 @@ let g:ale_fixers = {
 \   'rust': ['rustfmt'],
 \   'go': ['gofmt'],
 \   'c': ['clang-format'],
-\   'markdown': ['prettier']
+\   'markdown': ['prettier'],
 \   'sh': ['shfmt']
 \}
-let g:ale_linters = {
-    \ 'python': ['pylint'],
-            \}
 let g:ycm_filetype_whitelist = {
             \'javascript': 1,
             \'java': 1,
