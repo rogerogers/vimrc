@@ -16,7 +16,6 @@ let g:ale_fixers = {
 \   'python': ['black', 'isort'],
 \   'java': ['google_java_format'],
 \   'yaml': ['prettier'],
-\   'markdown': ['prettier'],
 \   'json': ['prettier'],
 \   'html': ['html-beautify'],
 \   'htmldjango': ['html-beautify'],
