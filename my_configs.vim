@@ -16,6 +16,7 @@ let g:ale_fixers = {
 \   'python': ['black', 'isort'],
 \   'java': ['google_java_format'],
 \   'yaml': ['prettier'],
+\   'markdown': ['prettier'],
 \   'json': ['prettier'],
 \   'html': ['html-beautify'],
 \   'htmldjango': ['html-beautify'],
@@ -45,3 +46,5 @@ set laststatus=2  " always display the status line
 set completeopt=noinsert,menuone
 set splitbelow
 set termwinsize=10*0
+set cursorcolumn
+set cursorline
