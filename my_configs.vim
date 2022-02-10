@@ -16,11 +16,12 @@ let g:ale_fixers = {
 \   'python': ['black', 'isort'],
 \   'java': ['google_java_format'],
 \   'yaml': ['prettier'],
+\   'less': ['prettier'],
 \   'json': ['prettier'],
 \   'html': ['html-beautify'],
 \   'htmldjango': ['html-beautify'],
 \   'rust': ['rustfmt'],
-\   'go': ['gofmt'],
+\   'go': ['goimports'],
 \   'c': ['clang-format'],
 \   'markdown': ['prettier'],
 \   'sh': ['shfmt']
