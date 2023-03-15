@@ -4,7 +4,7 @@ Plug 'ycm-core/YouCompleteMe'
 Plug 'mattn/emmet-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+#Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'ap/vim-css-color'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -12,19 +12,23 @@ call plug#end()
 
 let g:ale_fixers = {
 \   'javascript': ['prettier','eslint'],
+\   'typescript': ['prettier','eslint'],
 \   'javascriptreact': ['prettier','eslint'],
+\   'typescriptreact': ['prettier','eslint'],
 \   'python': ['black', 'isort'],
 \   'java': ['google_java_format'],
 \   'yaml': ['prettier'],
 \   'less': ['prettier'],
 \   'json': ['prettier'],
-\   'html': ['html-beautify'],
+\   'html': ['prettier'],
 \   'htmldjango': ['html-beautify'],
 \   'rust': ['rustfmt'],
 \   'go': ['goimports'],
 \   'c': ['clang-format'],
 \   'markdown': ['prettier'],
-\   'sh': ['shfmt']
+\   'sh': ['shfmt'],
+\   'xml': ['xmllint'],
+\   'lua': ['lua-format']
 \}
 let g:ycm_filetype_whitelist = {
             \'javascript': 1,
@@ -48,3 +52,5 @@ set splitbelow
 set termwinsize=10*0
 set cursorcolumn
 set cursorline
+let g:blamer_enabled = 1
+set maxmempattern=20000
