@@ -224,3 +224,4 @@ hi CocInlayHint guibg=Grey guifg=White ctermbg=Grey ctermfg=White
 if &term == "alacritty"
         set term=xterm-256color
 endif
+au BufNewFile,BufRead *.yao set filetype=json
