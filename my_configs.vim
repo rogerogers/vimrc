@@ -220,3 +220,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 hi CocInlayHint guibg=Grey guifg=White ctermbg=Grey ctermfg=White
+
+if &term == "alacritty"
+        set term=xterm-256color
+endif
