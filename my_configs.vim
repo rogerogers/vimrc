@@ -221,7 +221,13 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 hi CocInlayHint guibg=Grey guifg=White ctermbg=Grey ctermfg=White
 
-if &term == "alacritty"
-        set term=xterm-256color
-endif
-au BufNewFile,BufRead *.yao set filetype=json
+function! ResetToXterm() abort
+    let terms = ["alacritty", "tmux-256color", "screen-256color"]
+    for t in terms
+        if &term == t
+            set term=xterm-256color
+        endif
+    endfor
+endfunction
+
+call ResetToXterm()
