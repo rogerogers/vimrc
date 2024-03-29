@@ -8,5 +8,3 @@ ln -s $(pwd)/my_configs.vim $HOME/.vim_runtime/my_configs.vim
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-go install golang.org/x/tools/cmd/goimports@latest

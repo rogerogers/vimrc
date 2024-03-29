@@ -15,7 +15,7 @@ let g:ale_fixers = {
 \   'typescript': ['prettier','eslint'],
 \   'javascriptreact': ['prettier','eslint'],
 \   'typescriptreact': ['prettier','eslint'],
-\   'python': ['black', 'isort'],
+\   'python': ['ruff'],
 \   'java': ['google_java_format'],
 \   'yaml': ['prettier'],
 \   'less': ['prettier'],
@@ -39,6 +39,7 @@ let g:ycm_filetype_whitelist = {
             \}
 let g:html_beautify_optiona = '--editorconfig'
 nnoremap <leader>jd :call CocActionAsync('jumpDefinition')<CR>
+nnoremap <leader>rf :call CocActionAsync('jumpUsed')<CR>
 " nnoremap <leader>cl :YcmCompleter GoToDeclaration<CR>
 " nnoremap <leader>rf :YcmCompleter GoToReferences<CR>
 let g:NERDTreeWinPos = "left"
@@ -221,7 +222,33 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 hi CocInlayHint guibg=Grey guifg=White ctermbg=Grey ctermfg=White
 
-if &term == "alacritty"
-        set term=xterm-256color
-endif
-au BufNewFile,BufRead *.yao set filetype=json
+function! ResetToXterm() abort
+    let terms = ["alacritty", "tmux-256color", "screen-256color"]
+    for t in terms
+        if &term == t
+            set term=xterm-256color
+        endif
+    endfor
+endfunction
+
+call ResetToXterm()
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+
+set statusline=%{LinterStatus()}
+
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+
+au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
+
