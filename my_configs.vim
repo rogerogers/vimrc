@@ -24,7 +24,7 @@ let g:ale_fixers = {
 \   'html': ['prettier'],
 \   'htmldjango': ['html-beautify'],
 \   'rust': ['rustfmt'],
-\   'go': ['goimports'],
+\   'go': ['gofumpt'],
 \   'c': ['clang-format'],
 \   'markdown': ['prettier'],
 \   'sh': ['shfmt'],
