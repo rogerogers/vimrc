@@ -11,6 +11,7 @@ Plug 'mxw/vim-jsx'
 call plug#end()
 
 let g:ale_fixers = {
+\   'proto': ['buf-format'],
 \   'javascript': ['prettier','eslint'],
 \   'typescript': ['prettier','eslint'],
 \   'javascriptreact': ['prettier','eslint'],
