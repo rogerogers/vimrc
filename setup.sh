@@ -6,6 +6,9 @@ sudo apt install -y python-is-python3 curl git zsh
 
 # setup nvm and node begin
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+source ~/.zshrc
+
 nvm install --lts
 npm install -g pnpm yarn
 # setup nvm and node end
