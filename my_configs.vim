@@ -251,7 +251,7 @@ endfunction
 
 set statusline=%{LinterStatus()}
 
-autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
+autocmd BufWritePre *.go :silent call CocAction('organizeImport')
 
 au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 
