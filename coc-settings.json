@@ -1,0 +1,9 @@
+{
+  "python.formatting.provider": "black",
+  "coc.preferences.formatOnSave": true,
+  "go.goplsOptions": {
+    "gofumpt": true,
+    "local": "github.com/rogerogers"
+  },
+  "diagnostic.displayByAle": true
+}
