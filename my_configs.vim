@@ -1,7 +1,7 @@
 set nu
 call plug#begin('~/.vim/plugged')
 Plug 'mattn/emmet-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -9,6 +9,8 @@ Plug 'ap/vim-css-color'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 call plug#end()
+
+let g:ale_proto_buf_lint_options=' --path'
 
 let g:ale_fixers = {
 \   'proto': ['buf-format'],
