@@ -1,7 +1,7 @@
 set -ex
 
 # setup ubuntu deps begin
-sudo apt install -y python-is-python3 curl git zsh
+sudo apt install -y python-is-python3 curl git zsh python3-pip
 # setup ubuntu deps end
 
 # setup nvm and node begin
