@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -ex
 
 # setup ubuntu deps begin
