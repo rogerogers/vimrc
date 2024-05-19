@@ -1,26 +1,23 @@
 set -ex
 
-# setup ubuntu deps begin
-sudo apt install -y python-is-python3 curl git zsh python3-pip
-# setup ubuntu deps end
-
 # setup nvm and node begin
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+#curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-source ~/.zshrc
+#source ~/.zshrc
 
-nvm install --lts
-npm install -g pnpm yarn
+#nvm install --lts
+#npm install -g pnpm yarn
 # setup nvm and node end
 
 # setup python deps begin
-python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
+# python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-pip install --user ruff poetry pipenv
+# pip install --user ruff poetry pipenv
 # setup python deps end
 
 # setup golang begin
 go install golang.org/x/tools/cmd/goimports@latest
+go install mvdan.cc/sh/v3/cmd/shfmt@latest
 # setup golang end
 
 # setup rust begin

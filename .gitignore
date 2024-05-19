@@ -1,1 +1,9 @@
+# env
+.env
+
+# ide
+.vscode
 .idea
+
+# tmp
+tmp
