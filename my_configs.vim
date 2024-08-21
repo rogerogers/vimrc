@@ -19,6 +19,7 @@ let g:ale_fixers = {
 \   'javascriptreact': ['prettier','eslint'],
 \   'typescriptreact': ['prettier','eslint'],
 \   'python': ['ruff'],
+\   'php': ['pint'],
 \   'java': ['google_java_format'],
 \   'yaml': ['prettier'],
 \   'less': ['prettier'],
