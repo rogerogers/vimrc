@@ -1,5 +1,6 @@
 # env
 .env
+.env*
 
 # ide
 .vscode
@@ -7,3 +8,7 @@
 
 # tmp
 tmp
+
+go.work*
+
+.air.toml
