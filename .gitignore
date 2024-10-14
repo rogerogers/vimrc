@@ -21,3 +21,5 @@ go.work*
 # log
 *.log
 
+# python
+celerybeat-schedule.db
