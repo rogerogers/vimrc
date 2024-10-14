@@ -5,10 +5,19 @@
 # ide
 .vscode
 .idea
+.zed
 
 # tmp
 tmp
 
+# go
 go.work*
 
 .air.toml
+
+# mac
+.DS_Store
+
+# log
+*.log
+
