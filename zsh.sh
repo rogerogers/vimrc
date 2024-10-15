@@ -4,7 +4,7 @@ set -ex
 
 # setup ubuntu deps begin
 
-sudo apt install -y python-is-python3 curl git zsh python3-pip
+sudo apt install -y python-is-python3 curl git zsh python3-pip ripgrep fd-find
 
 # setup ubuntu deps end
 
