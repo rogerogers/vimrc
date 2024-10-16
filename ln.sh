@@ -8,7 +8,7 @@ if [[ ! -d ~/.vim_runtime ]]; then
 fi
 
 # vimrc
-ln -s $(pwd)/my_configs.vim $HOME/.vim_runtime/my_configs.vim
+ln -snf $(pwd)/my_configs.vim $HOME/.vim_runtime/my_configs.vim
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
