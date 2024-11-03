@@ -21,7 +21,9 @@
   {
     "context": "Editor",
     "bindings": {
-      "ctrl-w": "pane::CloseActiveItem"
+      "ctrl-w": "pane::CloseActiveItem",
+      "ctrl-c": "editor::Copy",
+      "ctrl-v": "editor::Paste"
       // "j k": ["workspace::SendKeystrokes", "escape"]
     }
   }

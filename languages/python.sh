@@ -6,3 +6,6 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # deprecated
 # pip install --user ruff poetry pipenv
+
+# ruff
+curl -LsSf https://astral.sh/ruff/install.sh | sh
