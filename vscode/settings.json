@@ -1,0 +1,102 @@
+{
+  "redhat.telemetry.enabled": false,
+  "editor.formatOnSave": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prisma.scriptRunner": "pnpm",
+  "prisma.trace.server": "off",
+  "window.zoomLevel": 1,
+  "prisma.enableCodeLens": false,
+  "[prisma]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "vim.handleKeys": {
+    "<C-c>": false,
+    "<C-v>": false,
+    "<C-x>": false,
+    "<C-w>": false,
+    "<C-f>": false,
+    "<C-.>": false
+  },
+  "telemetry.telemetryLevel": "crash",
+  "editor.fontSize": 16,
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "explorer.confirmDelete": false,
+  "git.confirmSync": false,
+  "protoc": {
+    "path": "protoc",
+    "compile_on_save": false,
+    "options": [
+      "--proto_path=${workspaceRoot}/idl",
+      "--proto_path=${workspaceRoot}/proto",
+      "--proto_path=${userHome}/.local/include",
+      "--go_out=./proto",
+      "--go-grpc_out=./proto",
+      "--go_opt=paths=source_relative",
+      "--go-grpc_opt=paths=source_relative"
+    ]
+  },
+  "go.toolsManagement.autoUpdate": true,
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.startupEditor": "none",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "go.formatTool": "gofumpt",
+  "yaml.schemas": {
+    "kubernetes": "k*.yaml"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.organizeImports": "always"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "terminal.integrated.inheritEnv": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "git.enableCommitSigning": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "files.associations": {
+    "*.tmpl": "html"
+  },
+  "go.vetOnSave": "package",
+  "gopls": {
+    "formatting.gofumpt": true,
+    "formatting.local": "github.com/rogerogers/"
+  },
+  "[proto3]": {
+    "editor.defaultFormatter": "bufbuild.vscode-buf"
+  },
+  "workbench.colorTheme": "GitHub Dark",
+  "makefile.configureOnOpen": true,
+  "Lingma.PreferredLanguage for AI Chat": "English",
+  "Lingma.PreferredLanguage forCommitMessage": "English",
+  "laravel-pint.enable": true
+}
