@@ -16,3 +16,20 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 # global gitignore
 git config --global core.excludesFile '~/.gitignore'
 ln -snf $(pwd)/.gitignore ~/.gitignore
+
+unameOut="$(uname -s)"
+case "${unameOut}" in
+Linux*) machine=Linux ;;
+Darwin*) machine=Mac ;;
+CYGWIN*) machine=Cygwin ;;
+MINGW*) machine=MinGw ;;
+MSYS_NT*) machine=MSys ;;
+*) machine="UNKNOWN:${unameOut}" ;;
+esac
+
+case "${machine}" in
+Mac*)
+	ln -snf $(pwd)/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+	;;
+*) echo "unsupported os" ;;
+esac
