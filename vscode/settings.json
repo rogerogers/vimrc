@@ -98,5 +98,6 @@
   "makefile.configureOnOpen": true,
   "Lingma.PreferredLanguage for AI Chat": "English",
   "Lingma.PreferredLanguage forCommitMessage": "English",
-  "laravel-pint.enable": true
+  "laravel-pint.enable": true,
+  "workbench.iconTheme": "vscode-icons"
 }
