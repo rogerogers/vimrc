@@ -96,8 +96,10 @@
   },
   "workbench.colorTheme": "GitHub Dark",
   "makefile.configureOnOpen": true,
-  "Lingma.PreferredLanguage for AI Chat": "English",
-  "Lingma.PreferredLanguage forCommitMessage": "English",
-  "laravel-pint.enable": true,
-  "workbench.iconTheme": "vscode-icons"
+  "vs-kubernetes": {
+    "vscode-kubernetes.helm-path-linux": "${userHome}/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
