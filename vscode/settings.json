@@ -3,10 +3,10 @@
   "editor.formatOnSave": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "prisma.scriptRunner": "pnpm",
   "prisma.trace.server": "off",
@@ -45,11 +45,11 @@
   },
   "go.toolsManagement.autoUpdate": true,
   "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "terminal.integrated.defaultProfile.windows": "Command Prompt",
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "workbench.startupEditor": "none",
   "terminal.integrated.defaultProfile.linux": "zsh",
@@ -58,29 +58,31 @@
     "kubernetes": "k*.yaml"
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "editor.codeActionsOnSave": {
     "source.fixAll": "always",
-    "source.organizeImports": "always"
+    "source.organizeImports": "always",
+    "source.organizeImports.biome": "explicit",
+    "source.fixAll.biome": "explicit"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[python]": {
     "editor.formatOnType": true
   },
   "[yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "terminal.integrated.inheritEnv": false,
   "diffEditor.ignoreTrimWhitespace": false,
   "git.enableCommitSigning": true,
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "emmet.triggerExpansionOnTab": true,
   "files.associations": {
@@ -100,6 +102,6 @@
     "vscode-kubernetes.helm-path-linux": "${userHome}/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm"
   },
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   }
 }
