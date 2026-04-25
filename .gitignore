@@ -6,12 +6,14 @@
 .vscode
 .idea
 .zed
+*.swp
+*.swo
 
 # tmp
 tmp
 
 # go
-go.work*
+go.work.sum
 
 .air.toml
 
@@ -23,3 +25,14 @@ go.work*
 
 # python
 celerybeat-schedule.db
+
+/ios
+/android
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude
+.claude/
+

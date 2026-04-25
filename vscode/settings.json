@@ -1,12 +1,13 @@
 {
+  "workbench.editor.wrapTabs": true,
   "redhat.telemetry.enabled": false,
   "editor.formatOnSave": true,
-  "javascript.updateImportsOnFileMove.enabled": "always",
+  "js/ts.updateImportsOnFileMove.enabled": "always",
   "[javascriptreact]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "prisma.scriptRunner": "pnpm",
   "prisma.trace.server": "off",
@@ -16,6 +17,7 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "Prisma.prisma"
   },
+  "chat.agent.enabled": false,
   "vim.handleKeys": {
     "<C-c>": false,
     "<C-v>": false,
@@ -45,44 +47,48 @@
   },
   "go.toolsManagement.autoUpdate": true,
   "[markdown]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
-  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
   "[json]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonl]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "workbench.startupEditor": "none",
   "terminal.integrated.defaultProfile.linux": "zsh",
-  "go.formatTool": "gofumpt",
   "yaml.schemas": {
     "kubernetes": "k*.yaml"
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll": "always",
-    "source.organizeImports": "always",
+    // "source.organizeImports": "explicit",
+    "source.fixAll": "explicit",
     "source.organizeImports.biome": "explicit",
     "source.fixAll.biome": "explicit"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[python]": {
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "charliermarsh.ruff"
   },
   "[yaml]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "terminal.integrated.inheritEnv": false,
   "diffEditor.ignoreTrimWhitespace": false,
   "git.enableCommitSigning": true,
   "[typescript]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[scss]": {
-    "editor.defaultFormatter": "biomejs.biome"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "emmet.triggerExpansionOnTab": true,
   "files.associations": {
@@ -96,12 +102,51 @@
   "[proto3]": {
     "editor.defaultFormatter": "bufbuild.vscode-buf"
   },
-  "workbench.colorTheme": "GitHub Dark",
   "makefile.configureOnOpen": true,
   "vs-kubernetes": {
     "vscode-kubernetes.helm-path-linux": "${userHome}/.local/state/vs-kubernetes/tools/helm/linux-amd64/helm"
   },
   "[html]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  }
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "docker.extension.enableComposeLanguageServer": false,
+  "[graphql]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "http.systemCertificatesNode": true,
+  "diffEditor.codeLens": true,
+  "json.schemaDownload.trustedDomains": {
+    "https://biomejs.dev": true,
+    "https://developer.microsoft.com/json-schemas/": true,
+    "https://json-schema.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://raw.githubusercontent.com/": true,
+    "https://raw.githubusercontent.com/devcontainers/spec/": true,
+    "https://raw.githubusercontent.com/microsoft/vscode/": true,
+    "https://schemastore.azurewebsites.net/": true,
+    "https://ui.shadcn.com/schema.json": true,
+    "https://www.schemastore.org/": true
+  },
+  "python-envs.alwaysUseUv": true,
+  "claudeCode.preferredLocation": "panel",
+  "geminicodeassist.project": "xanthic-weft-qsdh5",
+  "geminicodeassist.outlines.automaticOutlineGeneration": true,
+  "python-envs.terminal.autoActivationType": "shellStartup",
+  "geminicodeassist.displayInlineContextHint": false,
+  "chat.viewSessions.orientation": "stacked",
+  "svelte.enable-ts-plugin": true
 }
