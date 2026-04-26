@@ -18,11 +18,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
             eval "$(/usr/local/bin/brew shellenv)"
         fi
     fi
-    brew install python curl git zsh ripgrep fd
+    brew install python curl git zsh ripgrep fd bat
 else
     # Ubuntu/Debian - 使用 apt 安装
     sudo apt update
-    sudo apt install -y python-is-python3 curl git zsh python3-pip ripgrep fd-find
+    sudo apt install -y python-is-python3 curl git zsh python3-pip ripgrep fd-find bat
 fi
 
 # setup deps end

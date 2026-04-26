@@ -58,7 +58,7 @@ uv python install
 if [[ -n "$USE_PROXY" ]]; then
     # uv 使用环境变量配置镜像源
     export UV_INDEX_URL="https://mirrors.aliyun.com/pypi/simple/"
-    # 写入 .zshrc 持久化
+    # 写入 .zshenv 持久化
     if ! grep -qF "UV_INDEX_URL" ~/.zshenv 2>/dev/null; then
         echo 'export UV_INDEX_URL="https://mirrors.aliyun.com/pypi/simple/"' >> ~/.zshenv
     fi
@@ -94,12 +94,12 @@ fi
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# 在 .zshrc 中 source cargo env
+# 在 .zshenv 中 source cargo env
 if ! grep -qF '. "$HOME/.cargo/env' ~/.zshenv 2>/dev/null; then
     echo '' >> ~/.zshenv
     echo '# rustup' >> ~/.zshenv
     echo '. "$HOME/.cargo/env"' >> ~/.zshenv
-    echo "Added cargo/env sourcing to .zshrc"
+    echo "Added cargo/env sourcing to .zshenv"
 fi
 
 if [[ -n "$USE_PROXY" ]]; then
@@ -189,12 +189,12 @@ esac
 EOF
         chmod +x "$HOME/go/env"
 
-        # 在 .zshrc 中 source
+        # 在 .zshenv 中 source
         if ! grep -qF '. "$HOME/go/bin/env' ~/.zshenv 2>/dev/null; then
             echo '' >> ~/.zshenv
             echo '# Go' >> ~/.zshenv
             echo '. "$HOME/go/env"' >> ~/.zshenv
-            echo "Added go/bin/env sourcing to .zshrc"
+            echo "Added go/env sourcing to .zshenv"
         fi
 
         echo "Installed ${GO_VERSION_LATEST} to ${GO_INSTALL_DIR}"
