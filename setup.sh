@@ -274,7 +274,7 @@ fi
 
 # 配置 Neovim
 if [[ -n "$SETUP_NVIM" ]]; then
-    mkdir -p "$HOME/.vim/temp_dirs/undodir"
+    mkdir -p "$HOME/.local/share/nvim/undo"
     mkdir -p "$HOME/.config/nvim"
     mkdir -p "$HOME/.local/share/nvim/site/autoload"
     ln -snf "${SCRIPT_DIR}/vimrc" "$HOME/.config/nvim/init.vim"

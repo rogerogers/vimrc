@@ -78,7 +78,11 @@ set hidden
 
 " Persistent Undo (Undo survives editor restart)
 if has('persistent_undo')
-  let s:undodir = expand('~/.vim/temp_dirs/undodir')
+  if has('nvim')
+    let s:undodir = expand('~/.local/share/nvim/undo')
+  else
+    let s:undodir = expand('~/.vim/temp_dirs/undodir')
+  endif
   if !isdirectory(s:undodir)
     silent! call mkdir(s:undodir, 'p')
   endif
