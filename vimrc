@@ -1,8 +1,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Standalone AI-Era High-Performance Vim & Neovim Configuration
 "    Absorbed & modernized from vimrc-fork / amix/vimrc.
-"    Features: Sub-ms startup, FZF & Ripgrep, NERDTree, Git review,
-"    precision text editing, automated formatting, and Gruvbox UI.
+"    Features: Sub-ms startup, FZF & Ripgrep, nvim-tree, fern.vim &
+"    oil.nvim, Git review, precision editing, automated formatting.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nocompatible
@@ -231,6 +231,17 @@ nnoremap <leader>to :tabonly<CR>
 nnoremap <leader>tc :tabclose<CR>
 nnoremap <leader>tm :tabmove<Space>
 nnoremap <leader>t<leader> :tabnext<CR>
+
+" Fast edit file in same directory as current buffer (<leader>e / <leader>ve / <leader>te)
+nnoremap <leader>e :edit <C-r>=escape(expand("%:p:h"), " ")<cr>/
+nnoremap <leader>ve :vsplit <C-r>=escape(expand("%:p:h"), " ")<cr>/
+nnoremap <leader>te :tabedit <C-r>=escape(expand("%:p:h"), " ")<cr>/
+
+" Remember last cursor position when reopening files
+augroup RememberCursorPosition
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") && &filetype !~# 'commit' | exe "normal! g'\"" | endif
+augroup END
 
 " Visual search with * and # (from amix/vimrc)
 vnoremap <silent> * :<C-u>call <SID>VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
@@ -474,7 +485,7 @@ let g:ale_fixers = {
 \   'proto': ['buf-format'],
 \   'c': ['clang-format'],
 \   'cpp': ['clang-format'],
-\   'lua': ['lua-format']
+\   'lua': ['stylua', 'lua-format']
 \}
 
 " Manual format shortcut
