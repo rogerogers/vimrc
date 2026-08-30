@@ -14,8 +14,10 @@ filetype plugin indent on
 " Auto-bootstrap vim-plug if not present (Vim & Neovim path support)
 if has('nvim')
   let s:plug_path = expand('~/.local/share/nvim/site/autoload/plug.vim')
+  let s:plugged_dir = expand('~/.local/share/nvim/plugged')
 else
   let s:plug_path = expand('~/.vim/autoload/plug.vim')
+  let s:plugged_dir = expand('~/.vim/plugged')
 endif
 
 if empty(glob(s:plug_path))
@@ -23,14 +25,20 @@ if empty(glob(s:plug_path))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(s:plugged_dir)
 
 " Fast Search & Discovery (ripgrep & fd powered)
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" File Tree Explorer (Lazy-loaded on toggle/find for 0ms startup overhead)
-Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+" File Navigation: nvim-tree + oil.nvim (Neovim) / fern.vim (Vim)
+if has('nvim')
+  Plug 'nvim-tree/nvim-tree.lua'
+  Plug 'nvim-tree/nvim-web-devicons'
+  Plug 'stevearc/oil.nvim'
+else
+  Plug 'lambdalisue/fern.vim'
+endif
 
 " Universal Syntax & Indentation (Lazy-loaded for 100+ languages)
 Plug 'sheerun/vim-polyglot'
@@ -203,6 +211,7 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+nnoremap <BS> <C-W>h
 
 " Fast Buffer switching
 nnoremap <silent> [b :bprevious<CR>
@@ -270,22 +279,153 @@ nnoremap <silent> <leader>gc :Commits<CR>
 nnoremap <silent> <leader>gh :BCommits<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => 7. NERDTree (File Tree Explorer)
+" => 7. File Navigation: nvim-tree & Oil.nvim (Neovim) / fern.vim (Vim)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:NERDTreeWinPos = "left"
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeWinSize = 30
-let g:NERDTreeIgnore = ['\.pyc$', '__pycache__$', '\.git$', 'node_modules$']
+if has('nvim')
+lua << LUA_EOF
+-- nvim-tree on_attach to preserve window navigation keys and mouse interaction
+local function tree_on_attach(bufnr)
+  local api = require('nvim-tree.api')
+  local function opts(desc)
+    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
 
-" Toggle NERDTree sidebar
-nnoremap <silent> <leader>nn :NERDTreeToggle<CR>
-" Locate & reveal current file in NERDTree
-nnoremap <silent> <leader>nf :NERDTreeFind<CR>
-" Open from bookmark
-nnoremap <leader>nb :NERDTreeFromBookmark<Space>
+  api.config.mappings.default_on_attach(bufnr)
+  pcall(vim.keymap.del, 'n', '<C-k>', { buffer = bufnr })
 
-" Auto-close Vim if the only window left is NERDTree
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+  -- Window navigation
+  vim.keymap.set('n', '<C-h>', '<C-w>h', opts('Window Left'))
+  vim.keymap.set('n', '<C-j>', '<C-w>j', opts('Window Down'))
+  vim.keymap.set('n', '<C-k>', '<C-w>k', opts('Window Up'))
+  vim.keymap.set('n', '<C-l>', '<C-w>l', opts('Window Right'))
+
+  -- Mouse click & double click interaction
+  vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts('Open / Expand'))
+  vim.keymap.set('n', '<LeftRelease>', api.node.open.edit, opts('Open / Expand'))
+end
+
+-- nvim-tree.lua setup (Modern async file explorer with git badges & devicons)
+local ok_tree, nvim_tree = pcall(require, "nvim-tree")
+if ok_tree then
+  nvim_tree.setup({
+    on_attach = tree_on_attach,
+    disable_netrw = false,
+    hijack_netrw = false,
+    view = {
+      width = 32,
+      side = "left",
+    },
+    renderer = {
+      group_empty = true,
+      highlight_git = true,
+      icons = {
+        show = {
+          file = true,
+          folder = true,
+          folder_arrow = true,
+          git = true,
+        },
+      },
+    },
+    filters = {
+      dotfiles = false,
+      custom = { "^\\.git$", "^node_modules$", "^\\.pyc$", "^__pycache__$" },
+    },
+    git = {
+      enable = true,
+      ignore = false,
+    },
+  })
+end
+
+-- oil.nvim setup (Edit filesystem like a normal text buffer)
+local ok_oil, oil = pcall(require, "oil")
+if ok_oil then
+  oil.setup({
+    default_file_explorer = false,
+    columns = {
+      "icon",
+    },
+    keymaps = {
+      ["g?"] = "actions.show_help",
+      ["<CR>"] = "actions.select",
+      ["<C-t>"] = "actions.select_tab",
+      ["<C-p>"] = "actions.preview",
+      ["<C-c>"] = "actions.close",
+      ["<C-l>"] = "actions.refresh",
+      ["-"] = "actions.parent",
+      ["_"] = "actions.open_cwd",
+      ["`"] = "actions.cd",
+      ["~"] = "actions.tcd",
+      ["gs"] = "actions.change_sort",
+      ["gx"] = "actions.open_external",
+      ["g."] = "actions.toggle_hidden",
+      ["g\\"] = "actions.toggle_trash",
+    },
+    view_options = {
+      show_hidden = true,
+    },
+    float = {
+      padding = 2,
+      max_width = 90,
+      max_height = 30,
+      border = "rounded",
+    },
+  })
+end
+LUA_EOF
+
+  " nvim-tree shortcuts
+  nnoremap <silent> <leader>nn :NvimTreeToggle<CR>
+  nnoremap <silent> <leader>nf :NvimTreeFindFile<CR>
+
+  " oil.nvim shortcuts
+  nnoremap <silent> - :Oil<CR>
+  nnoremap <silent> <leader>o :Oil<CR>
+  nnoremap <silent> <leader>O :Oil --float<CR>
+else
+  " Modern Async Fern.vim Configuration for standard Vim
+  let g:fern#drawer_width = 32
+  let g:fern#default_hidden = 1
+  let g:fern#scheme#file#show_absolute_path_on_root = 0
+
+  " Toggle Fern drawer sidebar
+  nnoremap <silent> <leader>nn :Fern . -drawer -toggle<CR>
+  " Locate & reveal current file in Fern drawer
+  nnoremap <silent> <leader>nf :Fern . -drawer -reveal=%<CR>
+
+  function! s:init_fern() abort
+    nmap <buffer><expr>
+          \ <Plug>(fern-my-expand-or-collapse)
+          \ fern#smart#leaf(
+          \   "<Plug>(fern-action-open)",
+          \   "<Plug>(fern-action-expand)",
+          \   "<Plug>(fern-action-collapse)",
+          \ )
+    nmap <buffer> <CR> <Plug>(fern-my-expand-or-collapse)
+    nmap <buffer> o <Plug>(fern-action-open:edit)
+    nmap <buffer> <C-t> <Plug>(fern-action-open:tabedit)
+    nmap <buffer> N <Plug>(fern-action-new-file)
+    nmap <buffer> K <Plug>(fern-action-new-dir)
+    nmap <buffer> D <Plug>(fern-action-remove)
+    nmap <buffer> q <Plug>(fern-action-drawer:close)
+    " Preserve window navigation inside Fern
+    nmap <buffer> <C-h> <C-w>h
+    nmap <buffer> <C-j> <C-w>j
+    nmap <buffer> <C-k> <C-w>k
+    nmap <buffer> <C-l> <C-w>l
+    " Enable mouse click & double-click interaction
+    nmap <buffer> <LeftRelease> <Plug>(fern-my-expand-or-collapse)
+    nmap <buffer> <2-LeftMouse> <Plug>(fern-my-expand-or-collapse)
+  endfunction
+
+  augroup FernCustomGroup
+    autocmd!
+    autocmd FileType fern call s:init_fern()
+    " Auto-close Vim if the only window left is Fern drawer
+    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && &filetype ==# 'fern' | quit | endif
+  augroup END
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => 8. Git Workflow & Review

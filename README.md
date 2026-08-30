@@ -28,8 +28,7 @@ Absorbed and modernized from `amix/vimrc` / `vimrc-fork`: **sub-millisecond star
 - **Vim & Neovim Configuration (`vimrc`)**:
   - **Dual Support**: Works identically across standard **Vim** (`~/.vimrc`) and **Neovim** (`~/.config/nvim/init.vim`)
   - **Plugin Management**: `vim-plug` with auto-bootstrapping and parallel async downloads
-  - **Fast Search**: `fzf` + `fzf.vim` integrated with `ripgrep` (`rg`) and `fd` (overrides legacy MRU & Ack)
-  - **File Tree Explorer**: `NERDTree` (lazy-loaded on toggle/find with 0ms startup overhead)
+  - **File Tree Explorers**: **`nvim-tree.lua`** (Neovim async tree) / **`fern.vim`** (Vim async tree) + **`oil.nvim`** (buffer-based file editor)
   - **Syntax & Highlighting**: `vim-polyglot` (lazy-loaded 100+ languages)
   - **Git Workflow**: `vim-fugitive` (status & interactive blame), `vim-gitgutter`, `git-messenger.vim` (popup commit info)
   - **Precision Editing**: `vim-surround`, `vim-commentary`, `vim-repeat`, `vim-indent-object`, `vim-visual-multi`, `editorconfig`
@@ -50,9 +49,10 @@ Absorbed and modernized from `amix/vimrc` / `vimrc-fork`: **sub-millisecond star
 
 | Shortcut | Action | Description |
 | :--- | :--- | :--- |
-| `<leader>nn` | `:NERDTreeToggle` | Toggle file tree sidebar |
-| `<leader>nf` | `:NERDTreeFind` | Reveal & locate current file in NERDTree |
-| `<leader>nb` | `:NERDTreeFromBookmark` | Open bookmark in NERDTree |
+| `<leader>nn` | Toggle Tree | Toggle file tree sidebar (`nvim-tree` / `fern.vim`) |
+| `<leader>nf` | Locate File | Reveal current file in tree sidebar (`nvim-tree` / `fern.vim`) |
+| `-` / `<leader>o` | `:Oil` | **Oil.nvim**: Edit directory like a text buffer (Neovim) |
+| `<leader>O` | `:Oil --float` | **Oil.nvim**: Open floating directory editor (Neovim) |
 | `<leader>f` / `<C-p>` | `:Files` | Fuzzy search files in workspace via `fd` (`Esc` to exit) |
 | `<leader>g` / `<leader>rg` | `:Rg` | Full-text search across files via `ripgrep` (`Esc` to exit) |
 | `<leader>b` | `:Buffers` | Switch active buffers |
