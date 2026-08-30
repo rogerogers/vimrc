@@ -17,7 +17,6 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "chat.agent.enabled": false,
   "vim.handleKeys": {
     "<C-c>": false,
     "<C-v>": false,
@@ -79,7 +78,7 @@
     "editor.defaultFormatter": "charliermarsh.ruff"
   },
   "[yaml]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "terminal.integrated.inheritEnv": false,
   "diffEditor.ignoreTrimWhitespace": false,
@@ -148,5 +147,14 @@
   "python-envs.terminal.autoActivationType": "shellStartup",
   "geminicodeassist.displayInlineContextHint": false,
   "chat.viewSessions.orientation": "stacked",
-  "svelte.enable-ts-plugin": true
+  "svelte.enable-ts-plugin": true,
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml"
+  ],
+  "claudeCode.useCtrlEnterToSend": true
 }

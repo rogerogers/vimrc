@@ -1,6 +1,7 @@
 # env
 .env
 .env*
+!.env.example
 
 # ide
 .vscode
@@ -36,3 +37,6 @@ Thumbs.db
 # Claude
 .claude/
 
+*.docx
+
+.pnpm-store

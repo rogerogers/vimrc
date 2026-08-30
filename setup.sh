@@ -104,7 +104,7 @@ fi
 
 if [[ -n "$USE_PROXY" ]]; then
     mkdir -p ~/.cargo
-    cat > ~/.cargo/config.toml << 'EOF'
+    cat > ~/.cargo/config.toml << 'EOF_CARGO'
 [source.crates-io]
 replace-with = 'rsproxy-sparse'
 [source.rsproxy]
@@ -115,7 +115,7 @@ registry = "sparse+https://rsproxy.cn/index/"
 index = "https://rsproxy.cn/crates.io-index"
 [net]
 git-fetch-with-cli = true
-EOF
+EOF_CARGO
     echo "cargo registry set to rsproxy"
 fi
 
@@ -177,7 +177,7 @@ if [[ -n "$GO_INSTALL_NEEDED" ]]; then
         export PATH="$HOME/go/bin:$PATH"
 
         # 创建 env 文件，cargo 风格
-        cat > "$HOME/go/env" << 'EOF'
+        cat > "$HOME/go/env" << 'EOF_GO'
 #!/bin/sh
 case ":${PATH}:" in
     *:"$HOME/go/bin":*)
@@ -186,7 +186,7 @@ case ":${PATH}:" in
         export PATH="$HOME/go/bin:$PATH"
         ;;
 esac
-EOF
+EOF_GO
         chmod +x "$HOME/go/env"
 
         # 在 .zshenv 中 source
@@ -211,49 +211,91 @@ go install golang.org/x/tools/cmd/goimports@latest
 go install mvdan.cc/sh/v3/cmd/shfmt@latest
 
 # ============================================
-# Git 配置
+# Git 全局配置与软链接
 # ============================================
 
 git config --global core.excludesfile ~/.gitignore
-
-# 先删除再创建，避免符号链接循环
-rm -f ~/.gitignore
-ln -s "${SCRIPT_DIR}/.gitignore" ~/.gitignore
+ln -snf "${SCRIPT_DIR}/.gitignore" "$HOME/.gitignore"
+echo "Linked ~/.gitignore"
 
 # ============================================
-# Vim 配置
+# Vim & Neovim 配置与软链接
 # ============================================
 
-if [[ ! -d ~/.vim_runtime ]]; then
-    git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
-    sh ~/.vim_runtime/install_awesome_vimrc.sh
-    echo "Installed vimrc"
-else
-    echo "vimrc is already installed, skipping clone..."
+echo "请选择要配置的编辑器 [1) Vim  2) Neovim  3) Both (默认)]: \c"
+read -r editor_choice
+
+SETUP_VIM=""
+SETUP_NVIM=""
+
+case "${editor_choice}" in
+    1|[Vv][Ii][Mm])
+        SETUP_VIM="1"
+        ;;
+    2|[Nn][Vv][Ii][Mm]|[Nn]eovim)
+        SETUP_NVIM="1"
+        ;;
+    *)
+        SETUP_VIM="1"
+        SETUP_NVIM="1"
+        ;;
+esac
+
+# 清理旧的 amix/vimrc 运行时目录（如果存在）
+if [[ -d "$HOME/.vim_runtime" ]]; then
+    echo "检测到旧的 amix/vimrc 目录 (~/.vim_runtime)，是否删除释放空间? (y/N): \c"
+    read -r clean_old
+    if [[ "$clean_old" =~ ^[Yy]$ ]]; then
+        rm -rf "$HOME/.vim_runtime"
+        echo "已清理 ~/.vim_runtime"
+    fi
 fi
 
-echo "是否覆盖 Vim 自定义配置 (my_configs.vim)? (y/N): \c"
-read -r answer
-if [[ "$answer" =~ ^[Yy]$ ]]; then
-    ln -snf "${SCRIPT_DIR}/config/my_configs.vim" "$HOME/.vim_runtime/my_configs.vim"
-    echo "Vim config updated"
-else
-    echo "Skipping Vim config"
+# 配置 Vim
+if [[ -n "$SETUP_VIM" ]]; then
+    mkdir -p "$HOME/.vim/temp_dirs/undodir"
+    mkdir -p "$HOME/.vim/autoload"
+    ln -snf "${SCRIPT_DIR}/vimrc" "$HOME/.vimrc"
+    echo "Linked ~/.vimrc -> ${SCRIPT_DIR}/vimrc"
+
+    if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
+        curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
+            --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        echo "Installed vim-plug for Vim"
+    fi
+
+    if command -v vim &> /dev/null; then
+        vim +PlugInstall +PlugClean! +qall
+        echo "Vim plugins installed and synchronized"
+    else
+        echo "Vim 未安装，跳过 Vim 插件同步"
+    fi
 fi
 
-if [[ ! -f ~/.vim/autoload/plug.vim ]]; then
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    echo "Installed vim-plug"
-else
-    echo "vim-plug is already installed, skipping download..."
-fi
+# 配置 Neovim
+if [[ -n "$SETUP_NVIM" ]]; then
+    mkdir -p "$HOME/.vim/temp_dirs/undodir"
+    mkdir -p "$HOME/.config/nvim"
+    mkdir -p "$HOME/.local/share/nvim/site/autoload"
+    ln -snf "${SCRIPT_DIR}/vimrc" "$HOME/.config/nvim/init.vim"
+    echo "Linked ~/.config/nvim/init.vim -> ${SCRIPT_DIR}/vimrc"
 
-vim +PlugInstall +qall
-echo "Vim plugins installed"
+    if [[ ! -f "$HOME/.local/share/nvim/site/autoload/plug.vim" ]]; then
+        curl -fLo "$HOME/.local/share/nvim/site/autoload/plug.vim" --create-dirs \
+            --proto '=https' --tlsv1.2 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        echo "Installed vim-plug for Neovim"
+    fi
+
+    if command -v nvim &> /dev/null; then
+        nvim --headless +PlugInstall +PlugClean! +qall
+        echo "Neovim plugins installed and synchronized"
+    else
+        echo "Neovim 未安装，跳过 Neovim 插件同步。安装后执行 nvim --headless +PlugInstall +PlugClean! +qall 即可"
+    fi
+fi
 
 # ============================================
-# VSCode 配置
+# VSCode 配置与软链接
 # ============================================
 
 echo "是否覆盖 VSCode 配置? (y/N): \c"
@@ -273,25 +315,25 @@ if [[ "$answer" =~ ^[Yy]$ ]]; then
 
     case "${machine}" in
     Mac*)
-        if [[ -d ~/Library/Application\ Support/Code/User ]]; then
-            ln -snf "${VSCODE_SETTINGS}" ~/Library/Application\ Support/Code/User/settings.json
-            echo "Linked VSCode settings for Mac"
-        else
-            echo "VSCode config directory not found, please install VSCode first"
-        fi
+        mkdir -p "$HOME/Library/Application Support/Code/User"
+        ln -snf "${VSCODE_SETTINGS}" "$HOME/Library/Application Support/Code/User/settings.json"
+        echo "Linked VSCode settings for Mac"
         ;;
     Linux*)
-        if [[ -d ~/.config/Code/User ]]; then
-            ln -snf "${VSCODE_SETTINGS}" ~/.config/Code/User/settings.json
+        if [[ -d "$HOME/.config/Code/User" ]] || command -v code &> /dev/null; then
+            mkdir -p "$HOME/.config/Code/User"
+            ln -snf "${VSCODE_SETTINGS}" "$HOME/.config/Code/User/settings.json"
             echo "Linked VSCode settings for Linux"
-        elif [[ -d ~/.config/Code\ -\ Insiders/User ]]; then
-            ln -snf "${VSCODE_SETTINGS}" ~/.config/Code\ -\ Insiders/User/settings.json
+        fi
+        if [[ -d "$HOME/.config/Code - Insiders/User" ]]; then
+            mkdir -p "$HOME/.config/Code - Insiders/User"
+            ln -snf "${VSCODE_SETTINGS}" "$HOME/.config/Code - Insiders/User/settings.json"
             echo "Linked VSCode Insiders settings for Linux"
-        elif [[ -d ~/.config/VSCodium/User ]]; then
-            ln -snf "${VSCODE_SETTINGS}" ~/.config/VSCodium/User/settings.json
+        fi
+        if [[ -d "$HOME/.config/VSCodium/User" ]]; then
+            mkdir -p "$HOME/.config/VSCodium/User"
+            ln -snf "${VSCODE_SETTINGS}" "$HOME/.config/VSCodium/User/settings.json"
             echo "Linked VSCodium settings for Linux"
-        else
-            echo "VSCode config directory not found, please install VSCode first"
         fi
         ;;
     *) echo "Unsupported OS for VSCode settings: ${machine}" ;;
