@@ -317,6 +317,9 @@ local function tree_on_attach(bufnr)
   -- Mouse click & double click interaction
   vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts('Open / Expand'))
   vim.keymap.set('n', '<LeftRelease>', api.node.open.edit, opts('Open / Expand'))
+
+  -- Close tree
+  vim.keymap.set('n', 'q', api.tree.close, opts('Close'))
 end
 
 -- nvim-tree.lua setup (Modern async file explorer with git badges & devicons)
@@ -351,6 +354,30 @@ if ok_tree then
       ignore = false,
     },
   })
+
+  -- Auto-close nvim-tree if it is the only window remaining in the tab/editor
+  vim.api.nvim_create_autocmd({"WinClosed", "BufEnter"}, {
+    group = vim.api.nvim_create_augroup("NvimTreeAutoClose", { clear = true }),
+    nested = true,
+    callback = function()
+      vim.schedule(function()
+        local wins = vim.tbl_filter(function(w)
+          return vim.api.nvim_win_is_valid(w) and vim.api.nvim_win_get_config(w).relative == ""
+        end, vim.api.nvim_tabpage_list_wins(0))
+
+        if #wins == 1 then
+          local buf = vim.api.nvim_win_get_buf(wins[1])
+          if vim.bo[buf].filetype == "NvimTree" then
+            if #vim.api.nvim_list_tabpages() == 1 then
+              pcall(vim.cmd, "quit")
+            else
+              pcall(vim.api.nvim_win_close, wins[1], true)
+            end
+          end
+        end
+      end)
+    end,
+  })
 end
 
 -- oil.nvim setup (Edit filesystem like a normal text buffer)
@@ -367,6 +394,7 @@ if ok_oil then
       ["<C-t>"] = "actions.select_tab",
       ["<C-p>"] = "actions.preview",
       ["<C-c>"] = "actions.close",
+      ["q"] = "actions.close",
       ["<C-l>"] = "actions.refresh",
       ["-"] = "actions.parent",
       ["_"] = "actions.open_cwd",
@@ -423,7 +451,7 @@ else
     nmap <buffer> N <Plug>(fern-action-new-file)
     nmap <buffer> K <Plug>(fern-action-new-dir)
     nmap <buffer> D <Plug>(fern-action-remove)
-    nmap <buffer> q <Plug>(fern-action-drawer:close)
+    nnoremap <buffer><silent> q :<C-u>quit<CR>
     " Preserve window navigation inside Fern
     nmap <buffer> <C-h> <C-w>h
     nmap <buffer> <C-j> <C-w>j
