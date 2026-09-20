@@ -59,6 +59,10 @@ Plug 'editorconfig/editorconfig-vim'
 " Fast Asynchronous Formatting & Linting
 Plug 'dense-analysis/ale'
 
+" Language Server Protocol (LSP) - Semantic Navigation & Intelligence
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+
 " Aesthetics & Light Statusline
 Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
@@ -531,3 +535,50 @@ augroup FileTypeCustom
   autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
   autocmd BufRead,BufNewFile *.env* set filetype=sh
 augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => 11. Language Server Protocol (vim-lsp & vim-lsp-settings)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Diagnostics & UI customization
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_signs_enabled = 1
+let g:lsp_diagnostics_signs_error = {'text': '✖'}
+let g:lsp_diagnostics_signs_warning = {'text': '⚠'}
+let g:lsp_diagnostics_signs_hint = {'text': '💡'}
+let g:lsp_diagnostics_signs_information = {'text': 'ℹ'}
+
+" Buffer-local keybindings enabled when LSP is attached
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+
+  " Code navigation (<leader>c namespace & standard shortcuts)
+  nmap <buffer> <leader>cd <plug>(lsp-definition)
+  nmap <buffer> gd         <plug>(lsp-definition)
+  nmap <buffer> <leader>cD <plug>(lsp-declaration)
+  nmap <buffer> gD         <plug>(lsp-declaration)
+  nmap <buffer> <leader>cr <plug>(lsp-references)
+  nmap <buffer> gr         <plug>(lsp-references)
+  nmap <buffer> <leader>ci <plug>(lsp-implementation)
+  nmap <buffer> gi         <plug>(lsp-implementation)
+  nmap <buffer> <leader>ct <plug>(lsp-type-definition)
+  nmap <buffer> gy         <plug>(lsp-type-definition)
+
+  " Documentation hover & signature help
+  nmap <buffer> <leader>ck <plug>(lsp-hover)
+  nmap <buffer> K          <plug>(lsp-hover)
+
+  " Refactoring & Actions
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> <leader>ca <plug>(lsp-code-action)
+
+  " Diagnostics navigation
+  nmap <buffer> [d <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]d <plug>(lsp-next-diagnostic)
+endfunction
+
+augroup LspBufferSettings
+  autocmd!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+

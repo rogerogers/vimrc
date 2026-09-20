@@ -33,6 +33,7 @@ Absorbed and modernized from `amix/vimrc` / `vimrc-fork`: **sub-millisecond star
   - **Git Workflow**: `vim-fugitive` (status & interactive blame), `vim-gitgutter`, `git-messenger.vim` (popup commit info)
   - **Precision Editing**: `vim-surround`, `vim-commentary`, `vim-repeat`, `vim-indent-object`, `vim-visual-multi`, `editorconfig`
   - **Formatters**: `ALE` with modern fast linters/fixers (`ruff`, `gofumpt`, `prettier`, `shfmt`, `rustfmt`)
+  - **Language Server Protocol (LSP)**: `vim-lsp` + `vim-lsp-settings` for asynchronous code navigation, jump to definition/references, and semantic intelligence across both Vim and Neovim (`:LspInstallServer`)
   - **UI & Aesthetics**: `gruvbox` true-color scheme, `lightline.vim` statusline, hybrid relative numbers
   - **Neovim Enhancements**: Live substitution preview (`inccommand=split`), terminal escape mappings
   - **System Clipboard**: Seamless copy/paste with OS and AI assistants (`clipboard^=unnamed,unnamedplus`)
@@ -65,6 +66,15 @@ Absorbed and modernized from `amix/vimrc` / `vimrc-fork`: **sub-millisecond star
 | `<leader>gd` | `:Gdiffsplit` | Git diff split view |
 | `<leader>d` | `:GitGutterToggle` | Toggle Git diff signs |
 | `<leader>cf` | `:ALEFix` | Format current buffer on demand |
+| `<leader>cd` / `gd` | Go to Definition | Jump to symbol definition via LSP |
+| `<leader>cD` / `gD` | Go to Declaration | Jump to symbol declaration via LSP |
+| `<leader>cr` / `gr` | Find References | Find symbol references across project |
+| `<leader>ci` / `gi` | Implementation | Jump to interface implementation |
+| `<leader>ct` / `gy` | Type Definition | Jump to type definition |
+| `<leader>ck` / `K` | Hover / Docs | Show symbol documentation & signature |
+| `<leader>rn` | Rename Symbol | Rename symbol across workspace |
+| `<leader>ca` | Code Action | Quick fix & refactoring actions |
+| `[d` / `]d` | Diagnostic Nav | Jump to previous / next LSP diagnostic |
 | `<leader><cr>` | `:nohlsearch` | Clear search highlights |
 | `<C-j/k/h/l>` | Window Move | Fast window navigation |
 | `*` / `#` (Visual) | Search Selection | Search selected text forwards / backwards |
