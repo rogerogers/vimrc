@@ -99,13 +99,6 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-" System Clipboard Integration (Seamless copy/paste with OS & AI tools)
-if has('unnamedplus')
-  set clipboard^=unnamed,unnamedplus
-else
-  set clipboard^=unnamed
-endif
-
 " Set Leader key to comma (classic amix convention)
 let mapleader = ","
 let g:mapleader = ","
@@ -581,4 +574,3 @@ augroup LspBufferSettings
   autocmd!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
-
