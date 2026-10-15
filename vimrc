@@ -526,7 +526,8 @@ augroup FileTypeCustom
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
   autocmd BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
-  autocmd BufRead,BufNewFile *.env* set filetype=sh
+  " vim-polyglot maps .env to sh; use the native `env` filetype instead
+  autocmd BufRead,BufNewFile *.env,.env,.env.* set filetype=env
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
